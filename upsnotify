@@ -1,0 +1,19 @@
+#!/bin/sh
+
+SYSADMIN=root
+MAILSW="/usr/bin/mail"
+UPSSW="/usr/bin/upsc"
+UPSNAME="apc350@localhost"
+
+EVDATE=$(date)
+
+MSG="$(hostname) $*"
+
+(
+   echo "Subject: $MSG"
+   echo " "
+   echo "Event date: $EVDATE"
+   echo " "
+   $UPSSW $UPSNAME
+) | $MAILSW -s "$MSG" $SYSADMIN
+exit 0
