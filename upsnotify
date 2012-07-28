@@ -1,19 +1,24 @@
+
+
 #!/bin/sh
 
-SYSADMIN=root
+SYSADMIN="root"
+LOG="/var/log/ups/events.log"
 MAILSW="/usr/bin/mail"
 UPSSW="/usr/bin/upsc"
-UPSNAME="apc350@localhost"
+UPSNAME="UPSNAME[@UPSHOST]"
 
 EVDATE=$(date)
 
-MSG="$(hostname) $*"
+MSG="$* on $(hostname)"
+
+echo "$EVDATE - $MSG" >> $LOG
 
 (
    echo "Subject: $MSG"
    echo " "
    echo "Event date: $EVDATE"
    echo " "
-   $UPSSW $UPSNAME
+   $UPSSW $UPSNAME | grep -v driver
 ) | $MAILSW -s "$MSG" $SYSADMIN
 exit 0
