@@ -1,6 +1,6 @@
+#!/bin/bash
 
-
-#!/bin/sh
+set -e
 
 SYSADMIN="root"
 LOG="/var/log/ups/events.log"
@@ -13,7 +13,6 @@ EVDATE=$(date)
 MSG="$* on $(hostname)"
 
 echo "$EVDATE - $MSG" >> $LOG
-
 (
    echo "Subject: $MSG"
    echo " "
